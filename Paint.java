@@ -7,82 +7,47 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import java.io.*;
-
-
-public class Paint extends JFrame implements Serializable{
-    private transient String mess;
-    private transient int x,y,x1,y1,width,height,condition;
-    private transient final Color[] colors = {Color.black,Color.white,Color.yellow,Color.green,Color.red,Color.BLUE,Color.CYAN,Color.DARK_GRAY,Color.GRAY,Color.LIGHT_GRAY,Color.MAGENTA,Color.orange};
-    private transient final String[] colorNames = {"Black","White","Yellow","Green","Red","Blue","Cyan","Dark Gray","Gray","Light Gray","Magenta","Orange"};
-    private transient final String[] shapes = {"Line","Rectangle/Square","Oval/Circle"};
-    Point[] circle=new Point[10000];
-    Point[] rect=new Point[10000];
-    Point[] line=new Point[10000];
-    int[] lineColor=new int[5000];
-    int[] rectColor=new int[5000];
-    int[] circleColor=new int[5000];
-    boolean[] boolCircle=new boolean[5000];
-    boolean[] boolRect=new boolean[5000];
+/**
+ *
+ * @author Noor
+ */
+public class Paint extends JFrame{
+    private String mess;
+    private int x,y,x1,y1,width,height,condition;
+    private final Color[] colors = {Color.black,Color.white,Color.yellow,Color.green,Color.red,Color.BLUE,Color.CYAN,Color.DARK_GRAY,Color.GRAY,Color.LIGHT_GRAY,Color.MAGENTA,Color.orange};
+    private final String[] colorNames = {"Black","White","Yellow","Green","Red","Blue","Cyan","Dark Gray","Gray","Light Gray","Magenta","Orange"};
+    private final String[] shapes = {"Line","Rectangle/Square","Oval/Circle"};
+    private Point[] circle=new Point[10000];
+    private Point[] rect=new Point[10000];
+    private Point[] line=new Point[10000];
+    private int[] lineColor=new int[5000];
+    private int[] rectColor=new int[5000];
+    private int[] circleColor=new int[5000];
+    private boolean[] boolCircle=new boolean[5000];
+    private boolean[] boolRect=new boolean[5000];
     private boolean clearAct=false;
     //loop variables
-    private transient int bc=0,c,r,l,k,ci,loop,br;
-    private transient int ll=0,cl=0,rl=0,i,circleBoolCaller=0,rectBoolCaller=0,lci,rci,cci;
-    private transient int lineColorCaller,circleColorCaller,rectColorCaller;
-    private transient int lastAction=-1;
+    private int bc=0,c,r,l,k,ci,loop,br;
+    private int ll=0,cl=0,rl=0,i,circleBoolCaller=0,rectBoolCaller=0,lci,rci,cci;
+    private int lineColorCaller,circleColorCaller,rectColorCaller;
+    private int lastAction=-1;
     
     
-    private transient JLabel lab;
-    private transient JPanel labelPanel;
-    transient JPanel menu;
-    private transient final JButton clear;
-    //private transient final JButton load;
-    //private transient final JButton save;
-    private final transient JButton undo;
-    private transient JComboBox colorBox;
-    private transient JComboBox shapeBox;
-    private transient JCheckBox chk;
-    transient PArea canvas= new PArea();
-    
-    Point[] getCircle(){
-        System.out.println("getCircle");
-        return circle;
-    }
-    
-    int[] getCircleColor(){
-        return circleColor;
-    }
-    
-    boolean[] getCircleBool(){
-        return boolCircle;
-    }
-    
-    Point[] getRect(){
-        return rect;
-    }
-    
-    int[] getRectColor(){
-        return rectColor;
-    }
-    
-    boolean[] getRectBool(){
-        return boolRect;
-    }
-    
-    Point[] getline(){
-        return line;
-    }
-    
-    int[] getLineColor(){
-        return lineColor;
-    }
+    private JLabel lab;
+    private JPanel labelPanel;
+    private JPanel menu;
+    private final JButton clear;
+    private final JButton undo;
+    private JComboBox colorBox;
+    private JComboBox shapeBox;
+    private JCheckBox chk;
+    PArea canvas= new PArea();
+
     
     Paint(){
-        
         labelPanel=new JPanel();
         chk = new JCheckBox("Fill");
         shapeBox = new JComboBox(shapes);
@@ -96,11 +61,50 @@ public class Paint extends JFrame implements Serializable{
         clear.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent ev){
-                clear();
+                clearAct=true;
+                circle=null;
+                circle=new Point[10000];
+                rect=null;
+                rect=new Point[10000];
+                line=null;
+                line=new Point[10000];
+                lineColor=null;
+                lineColor=new int[5000];
+                rectColor=null;
+                rectColor=new int[5000];
+                circleColor=null;
+                circleColor=new int[5000];
+                boolCircle=null;
+                boolCircle=new boolean[5000];
+                boolRect=null;
+                boolRect=new boolean[5000];
+                bc=0;
+                c=0;
+                r=0;
+                l=0;
+                k=0;
+                ci=0;
+                loop=0;
+                br=0;
+                ll=0;
+                cl=0;
+                rl=0;
+                i=0;
+                circleBoolCaller=0;
+                rectBoolCaller=0;
+                lci=0;
+                rci=0;
+                cci=0;
+                lineColorCaller=0;
+                circleColorCaller=0;
+                rectColorCaller=0;
+                lastAction=-1;
+                canvas=null;
+                canvas=new PArea();
+                repaint();
+                clearAct=false;
             }
         });
-        //menu.add(load);
-        //menu.add(save);
         menu.add(clear);
         
         undo.addActionListener((ActionEvent evnt)->{
@@ -145,52 +149,7 @@ public class Paint extends JFrame implements Serializable{
         add(labelPanel,BorderLayout.SOUTH);
         setSize(1280,920);
         setLocationRelativeTo(null);
-        //setVisible(true);
-    }
-    
-    void clear(){
-        clearAct=true;
-        circle=null;
-        circle=new Point[10000];
-        rect=null;
-        rect=new Point[10000];
-        line=null;
-        line=new Point[10000];
-        lineColor=null;
-        lineColor=new int[5000];
-        rectColor=null;
-        rectColor=new int[5000];
-        circleColor=null;
-        circleColor=new int[5000];
-        boolCircle=null;
-        boolCircle=new boolean[5000];
-        boolRect=null;
-        boolRect=new boolean[5000];
-        bc=0;
-        c=0;
-        r=0;
-        l=0;
-        k=0;
-        ci=0;
-        loop=0;
-        br=0;
-        ll=0;
-        cl=0;
-        rl=0;
-        i=0;
-        circleBoolCaller=0;
-        rectBoolCaller=0;
-        lci=0;
-        rci=0;
-        cci=0;
-        lineColorCaller=0;
-        circleColorCaller=0;
-        rectColorCaller=0;
-        lastAction=-1;
-        canvas=null;
-        canvas=new PArea();
-        repaint();
-        clearAct=false;
+        setVisible(true);
     }
    
     class PArea extends JPanel{
@@ -349,73 +308,12 @@ public class Paint extends JFrame implements Serializable{
     }
 }
 class sss{
-    static Paint d=new Paint();
-
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(sss.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        JButton load = new JButton("Load");
-        load.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                JFileChooser fc = new JFileChooser();
-                int val=fc.showOpenDialog(null);
-                if(val==JFileChooser.APPROVE_OPTION){
-                    File opener = fc.getSelectedFile();
-                    try {
-                        //if(fc.getTypeDescription(opener).equals(".ser"))
-                        ObjectInputStream oos = new ObjectInputStream(new FileInputStream(opener));
-                        Paint object =(Paint)oos.readObject();
-                        d=object;
-                        /*d.clear();
-                        d.circle = object.getCircle();
-                        d.circleColor = object.getCircleColor();
-                        d.boolCircle = object.getCircleBool();
-                        d.rect = object.getRect();
-                        d.rectColor = object.getRectColor();
-                        d.boolRect = object.getRectBool();
-                        d.line = object.getline();
-                        d.lineColor = object.getLineColor();*/
-                        d.canvas.repaint();
-                        d.repaint();
-                        oos.close();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-        });
-        JButton save = new JButton("Save");
-        save.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                String name = JOptionPane.showInputDialog("Enter File Name")+".ser";
-                System.out.println(name);
-                JFileChooser fc = new JFileChooser();
-                fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                //int val =  fc.showSaveDialog(null);
-                if(!name.equals("null.ser")){
-                    try{
-                        System.out.println("approved");
-                        File file = new File(fc.getCurrentDirectory().getPath()+"\\"+name);
-                        file.createNewFile();
-                        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
-                        oos.writeObject(d);
-                        oos.close();
-                    }
-                    catch(Exception ex){
-                        ex.printStackTrace();
-                    }
-                }
-            }
-        });
-        d.menu.add(load);
-        d.menu.add(save);
-        d.setVisible(true);
+        Paint d=new Paint();        
     }
 }
