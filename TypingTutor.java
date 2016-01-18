@@ -10,6 +10,11 @@ import java.awt.Insets;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ *
+ * @author Noor
+ */
+ 
 class App extends JFrame{
     private JButton[] keypad;
     private JTextArea screen;
