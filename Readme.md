@@ -10,4 +10,4 @@ A simple swing based GUI calculator application
 # Typing Tutor
 a simple typing tutor with very basic functionality
 
-*you can make new better versions of the programs with bug fixes and more functionality and update the repository and will give them proper credits for their work :)
+* you can make new better versions of the programs with bug fixes and more functionality and update the repository and will give them proper credits for their work :)
