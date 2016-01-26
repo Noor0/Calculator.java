@@ -1,4 +1,4 @@
-# Paint Program
+# *Paint Program*
 in the paint program there's a bug the circle overlaps every other shape it's because in the function circles are printed in the last but im just too lazy to edit the code myself
 
 # Spelling Checker
