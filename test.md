@@ -1,4 +1,4 @@
-# [test]
+# [test][1]
 # *`test`*
 # *test*
 # `test`
@@ -16,5 +16,5 @@ hey bitch
 |guitar|midi|*`DAW`*|
 |gu~~it~~ar|~~midi~~|~~***`DAW`***~~|
 
-[fb] [1]
+
 [1]: https://fb.com "test"
