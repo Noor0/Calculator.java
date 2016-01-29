@@ -4,8 +4,8 @@
 # `test`
 - [ ] shit 
 - [x] what!?
-work `hard` very `*hard*` very very *`hard`*
+work `hard` very `*hard*` very very __*`hard`*__
 ```
-> what bitch
+what bitch
 hey bitch
 ```
