@@ -2,10 +2,10 @@
 # *`test`*
 # *test*
 # `test`
-- [] shit 
+- [ ] shit 
 - [x] what!?
 work `hard` very `*hard*` very very *`hard`*
-> ```
-what bitch
+```
+> what bitch
 hey bitch
 ```
